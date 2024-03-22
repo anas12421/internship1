@@ -2,8 +2,6 @@
 session_start();
 require "./db_connect.php";
 
-// print_r($_FILES);
-// die();
 
 $name = $_POST['name'];
 $email = $_POST['email'];
@@ -17,8 +15,6 @@ $subdistrict = $_POST['subdistrict'];
 
 
 
-
-
 $photo = $_FILES['image'];
 $after_explode =explode('.', $photo['name']);
 $extension =end($after_explode);
@@ -26,16 +22,27 @@ $allowed_ext =array('jpg','jpeg', 'png', 'gif', 'webp');
 
 
 
-$user_exist ="SELECT COUNT(*) AS total FROM users WHERE email = '$email' or name = '$name' or phone = '$phone' or nid = '$nid'";
+$user_exist ="SELECT COUNT(*) AS total FROM users WHERE email = '$email' OR name = '$name' OR phone = '$phone' OR nid = '$nid'";
 $user_exist_result =mysqli_query($db_connect, $user_exist);
 $user_assoc =mysqli_fetch_assoc($user_exist_result);
+
+
+$user_activity ="SELECT * FROM users WHERE activity = 1";
+$user_activity_result =mysqli_query($db_connect, $user_activity);
+$user_activity_assoc =mysqli_fetch_assoc($user_activity_result);
 
 
 $form = false;
 
 
-  if($user_assoc["total"] == 1) // main if
-  {
+  if($user_activity_assoc['activity'] == 1){
+    $form = true;
+    $_SESSION["activity_exists"]="Tomar Dara Ar hobe na";
+    header('location:page-register.php');
+  }
+  else{
+    if($user_assoc["total"] == 1) // main if
+{
     $_SESSION['exists'] = 'Email or Name or Phone or NID already exists';
     $_SESSION["old_name"]=$name;
     $_SESSION["old_email"]=$email;
@@ -63,19 +70,22 @@ $form = false;
     $_SESSION["email_err"]="Please enter a valid Email";
   }
   else{
-    $_SESSION["old_email"]=$name;
+    $_SESSION["old_email"]=$email;
   }
 
-  if(!$phone){
+  if(strlen($phone) != 11 ){
     $form = true;
-    $_SESSION["phone_err"]="Please enter a phone number";
-  }else{
+    $_SESSION["phone_err"]= "Min 11 character needed";
+    $_SESSION["old_phone"] = $phone ;
+  }
+  else{
     $_SESSION["old_phone"]=$phone;
   }
 
-  if(!$nid){
+  if(strlen($nid) != 10){
     $form = true;
-    $_SESSION["nid_err"]="Please enter a nid number";
+    $_SESSION["nid_err"]="Min 10 Character needed";
+    $_SESSION["old_nid"]=$nid;
   }else{
     $_SESSION["old_nid"]=$nid;
   }
@@ -120,12 +130,6 @@ $form = false;
     $_SESSION["photo_err"]="Please enter your Photo";
   }
 
-
-
-  
-  
- 
-  
   
   if($form){
     header("location:page-register.php");
@@ -154,6 +158,7 @@ $form = false;
   }
 
  }
+  }
 
 
 ?>

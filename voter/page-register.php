@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-// print_r($_SESSION["photo_err"]);
-
-
+// if(isset($_SESSION["loged_in"])){
+//     header('location:dashboard.php');
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -19,6 +19,9 @@ session_start();
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap"
         rel="stylesheet">
+
+            }
+        </style>
 </head>
 
 <body class="h-100">
@@ -36,6 +39,9 @@ session_start();
                                     <h4 class="text-center mb-4 text-white">Sign up your account</h4>
                                     <?php if(isset($_SESSION["exists"])){ ?>
                                     <div class="alert alert-danger mt-3 text-capitalize"><?=$_SESSION["exists"]?></div>
+                                    <?php } ?>
+                                    <?php if(isset($_SESSION["activity_exists"])){ ?>
+                                    <div class="alert alert-danger mt-3 text-capitalize"><?=$_SESSION["activity_exists"]?></div>
                                     <?php } ?>
                                     <form action="register_post.php" method="POST" enctype="multipart/form-data">
                                         <div class="row">
@@ -66,7 +72,7 @@ session_start();
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label class="mb-1 text-white"><strong>Phone</strong></label>
-                                                    <input type="number" class="form-control"
+                                                    <input type="number" placeholder="01XXXXXXXXX" class="form-control"
                                                         name="phone"
                                                         value="<?=(isset($_SESSION["old_phone"])?$_SESSION["old_phone"]:'')?>">
                                                     <?php if(isset($_SESSION["phone_err"])){ ?>
@@ -79,7 +85,7 @@ session_start();
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label class="mb-1 text-white"><strong>NID</strong></label>
-                                                    <input type="number"  class="form-control" name="nid"
+                                                    <input type="number" placeholder="XXXXXXXXXX" class="form-control nid_input" name="nid"
                                                         value="<?=(isset($_SESSION["old_nid"])?$_SESSION["old_nid"]:'')?>">
                                                     <?php if(isset($_SESSION["nid_err"])){ ?>
                                                     <div class="alert alert-warning mt-3 text-capitalize ">
@@ -220,6 +226,7 @@ session_start();
 </html>
 
 <?php
+unset($_SESSION["activity_exists"]);
 unset($_SESSION["exists"]);
 unset($_SESSION["register_success"]);
 unset($_SESSION["name_err"]);

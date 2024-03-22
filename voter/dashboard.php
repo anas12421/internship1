@@ -6,7 +6,6 @@ require "./db_connect.php";
 
 
 	$select = "SELECT * FROM users WHERE id = $user_id";
-	// $select = "SELECT * FROM users";
 	$voter_list =mysqli_query($db_connect, $select);
 	$voter_assoc =mysqli_fetch_assoc($voter_list);
 

@@ -14,8 +14,12 @@ $number_check = "SELECT * FROM users WHERE name= '$name'";
 $number_check_result = mysqli_query($db_connect, $number_check);
 $number_assoc = mysqli_fetch_assoc($number_check_result);
 
+$voter_name = $number_assoc['name'];
+
   if($name_assoc["total"] == 1){
     if($phone == $number_assoc['phone']){
+      $voter_activity = "UPDATE users SET activity = 1 WHERE name ='$voter_name'";
+      mysqli_query($db_connect, $voter_activity);
       $_SESSION["login_check"]= '';
       $_SESSION["loged_in"]= '';
       $_SESSION["id"]= $number_assoc["id"];

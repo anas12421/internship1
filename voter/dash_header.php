@@ -1,5 +1,6 @@
 <?php
   session_start();
+	require "login_check.php";
 	require "db_connect.php";
 	require "title.php";
 
@@ -8,9 +9,8 @@
 	$select_user_result = mysqli_query($db_connect , $user_select);
 	$user_assoc = mysqli_fetch_assoc($select_user_result);
 
-	// $select = "SELECT * FROM users WHERE id != $user_id and role != 1";
-	// // $select = "SELECT * FROM users";
-	// $users_list =mysqli_query($db_connect, $select);
+	$select = "SELECT * FROM users WHERE id != $user_id and role != 1";
+	$users_list =mysqli_query($db_connect, $select);
 
 
 	// User Role
@@ -887,7 +887,7 @@
 										</svg>
 										<span class="ml-2">Inbox </span>
 									</a>
-									<a href="logout.php" class="dropdown-item ai-icon">
+									<a href="logout.php?id=<?=$user_id?>" class="dropdown-item ai-icon">
 										<svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18"
 											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
 											stroke-linejoin="round">
