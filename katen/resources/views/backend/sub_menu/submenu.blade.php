@@ -14,12 +14,15 @@
                 @if (session('delete'))
                 <div class="alert alert-success mb-3">{{session('delete')}}</div>
                 @endif
+                @if (session('update'))
+                <div class="alert alert-success mb-3">{{session('update')}}</div>
+                @endif
                 <div class="row">
-                    @foreach ($menus as $menu)
+                    @foreach ($menus as $sl=>$menu)
                     <div class="col-lg-6">
                         <div class="card mt-2">
                             <div class="card-header">
-                                <h3 class="text-capitalize text-warning">{{$menu->name}}</h3>
+                                <h3 class="text-capitalize text-warning">{{$sl+1}}) {{$menu->name}}</h3>
                             </div>
 
                             <div class="card-body">
@@ -37,7 +40,7 @@
                                         <td>{{$sub_menu->link}}</td>
 
                                         <td>
-                                            {{-- <a href="{{route('user.edit' ,$user->id )}}" class="btn btn-primary"><i class="fa-solid fa-edit"></i></a> --}}
+                                            <a href="{{route('submenu.edit' ,$sub_menu->id )}}" class="btn btn-primary"><i class="fa-solid fa-edit"></i></a>
                                             <a href="{{route('submenu.delete' ,$sub_menu->id )}}" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>
                                         </td>
 
@@ -100,9 +103,4 @@
 </div>
 @endsection
 
-@section('footer_script')
-<script>
-    let table = new DataTable('#submenus');
 
-</script>
-@endsection

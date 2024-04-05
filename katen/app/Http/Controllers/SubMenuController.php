@@ -35,4 +35,21 @@ class SubMenuController extends Controller
 
         return back()->with('delete', 'Sub Menu Deleted Success!');
     }
+    function submenu_edit($id){
+        $submenu = SubMenu::find($id);
+        return view('backend.sub_menu.submenu_edit', compact('submenu'));
+    }
+    function submenu_update(Request $request, $id){
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        SubMenu::find($id)->update([
+            'name'=>$request->name,
+            'link'=>$request->link,
+        ]);
+        return redirect()->route('submenu')->with('update', 'SubMenu Updated Success!');
+
+
+    }
 }

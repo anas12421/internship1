@@ -29,4 +29,21 @@ class MenuController extends Controller
         Menu::find($id)->delete();
         return back()->with('delete', 'Menu Deleted Success!');
     }
+    function menu_edit($id){
+        $menu = Menu::find($id);
+        return view('backend.menu.menu_edit', compact('menu'));
+    }
+    function menu_update(Request $request, $id){
+        $request->validate([
+            'name'=>'required'
+        ]);
+
+        Menu::find($id)->update([
+            'name'=>$request->name,
+            'link'=>$request->link,
+        ]);
+        return redirect()->route('menu')->with('update', 'Menu Updated Success!');
+
+
+    }
 }

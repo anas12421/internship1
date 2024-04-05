@@ -17,6 +17,7 @@
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Role</th>
                                 <th>Photo</th>
                                 <th>Action</th>
                             </tr>
@@ -28,6 +29,17 @@
                                 <td>{{$sl+1}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
+                                <td>
+                                    @if ($user->role == 0)
+                                        <div class="badge bg-primary">Visitor</div>
+                                        @elseif ($user->role == 2)
+                                        <div class="badge bg-success">Super Admin</div>
+                                        @elseif ($user->role == 3)
+                                        <div class="badge bg-warning">Admin</div>
+                                        @elseif ($user->role == 4)
+                                        <div class="badge bg-danger">Moderator</div>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($user->photo ==  null)
                                     <img src="{{asset('backend_asset')}}/images/users/avatar-4.jpg" alt="user-image" width="50" >

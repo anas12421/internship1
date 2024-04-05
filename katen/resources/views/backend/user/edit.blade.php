@@ -42,6 +42,40 @@
                                 <div class="alert alert-danger mt-2 text-capitalize">{{$message}}</div>
                             @enderror
                         </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Role</label>
+                            <select name="role" class="form-control" id="">
+                                <option value="">Select Role</option>
+                                @if ($user->role == 0)
+                                <option selected value="0">Visitor</option>
+                                <option  value="2">Super Admin</option>
+                                <option  value="3">Admin</option>
+                                <option  value="4">Moderator</option>
+
+                                @elseif ($user->role == 2)
+                                <option  value="0">Visitor</option>
+                                <option selected value="2">Super Admin</option>
+                                <option  value="3">Admin</option>
+                                <option  value="4">Moderator</option>
+
+                                @elseif ($user->role == 3)
+                                <option  value="0">Visitor</option>
+                                <option  value="2">Super Admin</option>
+                                <option selected value="3">Admin</option>
+                                <option  value="4">Moderator</option>
+
+                                @elseif ($user->role == 4)
+                                <option  value="0">Visitor</option>
+                                <option  value="2">Super Admin</option>
+                                <option  value="3">Admin</option>
+                                <option selected value="4">Moderator</option>
+                                @endif
+                            </select>
+                             @error('role')
+                                <div class="alert alert-danger mt-2 text-capitalize">{{$message}}</div>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary">Update User</button>
                     </form>
                 </div>

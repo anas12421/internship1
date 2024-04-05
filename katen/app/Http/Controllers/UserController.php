@@ -39,12 +39,21 @@ class UserController extends Controller
         return back()->with('success', 'User Added Success!');
     }
     function user_delete($id){
-        $img = User::find($id);
-        $current_img = public_path('uploads/users/'.$img->photo);
-        unlink($current_img);
+        $user =  User::find($id);
 
-        User::find($id)->delete();
-        return back()->with('delete', 'User Deleted Success!');
+        if($user->photo == null){
+            User::find($id)->delete();
+            return back()->with('delete', 'User Deleted Success!');
+        }
+        else{
+
+            $img = User::find($id);
+            $current_img = public_path('uploads/users/'.$img->photo);
+            unlink($current_img);
+
+            User::find($id)->delete();
+            return back()->with('delete', 'User Deleted Success!');
+        }
     }
     function user_edit($id){
         $user = User::find($id);
@@ -57,12 +66,14 @@ class UserController extends Controller
             $request->validate([
                 'name'=>'required',
                 'email'=>'required',
+                'role'=>'required',
 
             ]);
 
             User::find($id)->update([
                 'name'=>$request->name,
                 'email'=>$request->email,
+                'role'=>$request->role,
             ]);
 
             return back()->with('update', 'User Update Success!');
@@ -85,6 +96,7 @@ class UserController extends Controller
                 'name'=>$request->name,
                 'email'=>$request->email,
                 'password'=>bcrypt($request->password),
+                'role'=>$request->role
             ]);
 
             return back()->with('update', 'User Update Success!');

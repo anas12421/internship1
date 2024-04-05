@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <title>
-        @foreach (Request::segments() as $segment ) {{ucwords($segment)}} @endforeach
+        @foreach (Request::segments() as $segment ) {{ucwords($segment)}} @endforeach | Dashtrap
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
@@ -19,6 +19,8 @@
 
     <link href="{{asset('backend_asset')}}/libs/morris.js/morris.css" rel="stylesheet" type="text/css" />
     <link href="//cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/css/selectize.default.min.css" integrity="sha512-pTaEn+6gF1IeWv3W1+7X7eM60TFu/agjgoHmYhAfLEU8Phuf6JKiiE8YmsNC0aCgQv4192s4Vai8YZ6VNM6vyQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 
     <!-- App css -->
     <link href="{{asset('backend_asset')}}/css/style.min.css" rel="stylesheet" type="text/css">
@@ -65,6 +67,7 @@
                     </li>
 
 
+
                     <li class="menu-item">
                         <a href="#menu" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
@@ -87,55 +90,38 @@
                         </div>
                     </li>
 
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href='{{route('category')}}'>
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Category </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href='{{route('tag')}}'>
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Tag </span>
+                        </a>
+                    </li>
 
                     <li class="menu-item">
-                        <a href="#menuExpages" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
+                        <a href="#blog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
-                            <span class="menu-text"> Extra Pages </span>
+                            <span class="menu-text"> Blog </span>
                             <span class="menu-arrow"></span>
                         </a>
-                        <div class="collapse" id="menuExpages">
+                        <div class="collapse" id="blog">
                             <ul class="sub-menu">
                                 <li class="menu-item">
-                                    <a class='menu-link' href='pages-starter.html'>
-                                        <span class="menu-text">Starter</span>
+                                    <a class='menu-link' href='{{route('new.blog')}}'>
+                                        <span class="menu-text">Write a Blog</span>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a class='menu-link' href='pages-invoice.html'>
-                                        <span class="menu-text">Invoice</span>
+                                    <a class='menu-link' href='{{route('blog.list')}}'>
+                                        <span class="menu-text">Blog List</span>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-login.html'>
-                                        <span class="menu-text">Log In</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-register.html'>
-                                        <span class="menu-text">Register</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-recoverpw.html'>
-                                        <span class="menu-text">Recover Password</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-lock-screen.html'>
-                                        <span class="menu-text">Lock Screen</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-404.html'>
-                                        <span class="menu-text">Error 404</span>
-                                    </a>
-                                </li>
-                                <li class="menu-item">
-                                    <a class='menu-link' href='pages-500.html'>
-                                        <span class="menu-text">Error 500</span>
-                                    </a>
-                                </li>
+
                             </ul>
                         </div>
                     </li>
@@ -370,7 +356,9 @@
                                 <img src="{{asset('backend_asset')}}/images/users/avatar-4.jpg" alt="user-image" class="rounded-circle">
 
                                 @else
+
                                 <img src="{{asset('uploads/users')}}/{{Auth::user()->photo}}" alt="user-image" class="rounded-circle">
+                                
                                 @endif
                                 <span class="ms-1 d-none d-md-inline-block">
                                     {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>
@@ -490,6 +478,9 @@
     <!-- Sparkline Js-->
     <script src="{{asset('backend_asset')}}/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
     <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.15.2/js/selectize.min.js" integrity="sha512-IOebNkvA/HZjMM7MxL0NYeLYEalloZ8ckak+NDtOViP7oiYzG5vn6WVXyrJDiJPhl4yRdmNAG49iuLmhkUdVsQ=="crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+
 
     <script src="{{asset('backend_asset')}}/libs/morris.js/morris.min.js"></script>
 
