@@ -27,6 +27,8 @@
     <link href="{{asset('backend_asset')}}/css/icons.min.css" rel="stylesheet" type="text/css">
 
     <script src="{{asset('backend_asset')}}/js/config.js"></script>
+
+
 </head>
 
 <body>
@@ -59,14 +61,14 @@
 
 
 
+                    @if (Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3 || Auth::user()->role == 4)
+
                     <li class="menu-item">
                         <a class='menu-link waves-effect waves-light' href='{{route('user')}}'>
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
                             <span class="menu-text"> User's </span>
                         </a>
                     </li>
-
-
 
                     <li class="menu-item">
                         <a href="#menu" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
@@ -96,12 +98,20 @@
                             <span class="menu-text"> Category </span>
                         </a>
                     </li>
+
                     <li class="menu-item">
                         <a class='menu-link waves-effect waves-light' href='{{route('tag')}}'>
                             <span class="menu-icon"><i class="bx bx-file"></i></span>
                             <span class="menu-text"> Tag </span>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a class='menu-link waves-effect waves-light' href='{{route('subscriber.list')}}'>
+                            <span class="menu-icon"><i class="bx bx-file"></i></span>
+                            <span class="menu-text"> Subscriber </span>
+                        </a>
+                    </li>
+                    @endif
 
                     <li class="menu-item">
                         <a href="#blog" data-bs-toggle="collapse" class="menu-link waves-effect waves-light">
@@ -358,7 +368,7 @@
                                 @else
 
                                 <img src="{{asset('uploads/users')}}/{{Auth::user()->photo}}" alt="user-image" class="rounded-circle">
-                                
+
                                 @endif
                                 <span class="ms-1 d-none d-md-inline-block">
                                     {{Auth::user()->name}} <i class="mdi mdi-chevron-down"></i>

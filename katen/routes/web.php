@@ -3,10 +3,13 @@
 use App\Http\Controllers\AuthUserController;
 use App\Http\Controllers\BackendController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SubMenuController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -77,5 +80,23 @@ Route::get('/blog/delete/{id}', [BlogController::class , 'blog_delete'])->name('
 Route::get('/blog/view/{id}', [BlogController::class , 'blog_view'])->name('blog.view');
 Route::post('/blog/update/{id}', [BlogController::class , 'blog_update'])->name('blog.update');
 Route::get('/blog/banner/status/{id}', [BlogController::class , 'blog_banner_status'])->name('blog.banner.status');
+
 // Frontend Blog
 Route::get('/blog/single/view/{slug}', [BlogController::class , 'blog_single'])->name('blog_single');
+
+// Frontend Category Wise Blog View
+Route::get('/category/view/{id}', [FrontendController::class , 'category_view'])->name('category.view');
+// Frontend Tag Wise Blog View
+Route::get('/tag/view/{id}', [FrontendController::class , 'tag_view'])->name('tag.view');
+
+// subscriber
+Route::post('/subscriber', [SubscriberController::class , 'subscriber'])->name('subscriber');
+Route::get('/subscriber/list', [SubscriberController::class , 'subscriber_list'])->name('subscriber.list');
+
+// Search
+Route::get('/search/result', [SearchController::class , 'search'])->name('search');
+
+// Comment
+Route::post('/comment', [CommentController::class , 'comment_store'])->name('comment.store');
+Route::get('/reply/to/{id}', [CommentController::class , 'reply'])->name('reply');
+Route::post('/reply/store', [CommentController::class , 'reply_store'])->name('reply.store');

@@ -22,6 +22,13 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style>
+        .breadcrumb-item+.breadcrumb-item::before {
+            content: '' !important;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -67,7 +74,7 @@
 		<nav class="navbar navbar-expand-lg">
 			<div class="container-xl">
 				<!-- site logo -->
-				<a class="navbar-brand" href="index.html"><img src="{{asset('frontend_asset')}}/images/logo.svg" alt="logo" /></a>
+				<a class="navbar-brand" href="http://127.0.0.1:8000/"><img src="{{asset('frontend_asset')}}/images/logo.svg" alt="logo" /></a>
 
 				<div class="collapse navbar-collapse">
 					<!-- menus -->
@@ -123,6 +130,8 @@
 
     @yield('content')
 
+
+
 <!-- footer -->
 	<footer>
 		<div class="container-xl">
@@ -166,10 +175,13 @@
 			<h3 class="mb-4 mt-0">Press ESC to close</h3>
 		</div>
 		<!-- form -->
-		<form class="d-flex search-form">
-			<input class="form-control me-2" type="search" placeholder="Search and press enter ..." aria-label="Search">
-			<button class="btn btn-default btn-lg" type="submit"><i class="icon-magnifier"></i></button>
-		</form>
+		<div class="d-flex search-form">
+
+			<input class="form-control me-2" id="search_input" type="search" placeholder="Search and press enter ...">
+			<button class="btn btn-default btn-lg" id="search_btn" type="submit">
+                <i class="icon-magnifier"></i>
+            </button>
+		</div>
 	</div>
 </div>
 
@@ -230,6 +242,15 @@
 <script src="{{asset('frontend_asset')}}/js/slick.min.js"></script>
 <script src="{{asset('frontend_asset')}}/js/jquery.sticky-sidebar.min.js"></script>
 <script src="{{asset('frontend_asset')}}/js/custom.js"></script>
+<script>
+    $('#search_btn').click(function() {
+        var search_val = $('#search_input').val();
+        var link = "{{ route('search') }}" + "?search_val=" + search_val ;
+        // alert(link)
+        window.location.href = link;
+    });
+
+</script>
 @yield('footer_script')
 
 </body>

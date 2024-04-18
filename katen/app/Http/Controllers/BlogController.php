@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -102,7 +103,7 @@ class BlogController extends Controller
                 'category_id'=>$request->category_id,
                 'description'=>$request->description,
                 'auth_desp'=>$request->auth_desp,
-                
+
                 'updated_at'=>Carbon::now(),
             ]);
 
@@ -157,8 +158,21 @@ class BlogController extends Controller
     function blog_single($slug){
         $blog_id = Blog::where('slug',$slug)->first()->id;
         $blog_info = Blog::find($blog_id);
+        $recent_blogs =Blog::all()->take(4)->sortByDesc("views");
+        $categories = Category::all();
+        $tags = Tag::all();
+        $comments = Comment::where('blog_id' ,$blog_id )->latest()->get();
+
+
+
+
+        Blog::where('id' , $blog_id)->increment('views' , 1);
         return view('frontend.blog.blog_single' ,[
             'blog_info'=>$blog_info,
+            'recent_blogs'=>$recent_blogs,
+            'categories'=>$categories,
+            'tags'=>$tags,
+            'comments'=>$comments,
         ]);
     }
 }

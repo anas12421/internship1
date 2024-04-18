@@ -23,6 +23,7 @@
                                 <th>Author</th>
                                 <th>Blog Title</th>
                                 <th>Thumbnail</th>
+                                <th>Views</th>
                                 <th>Publish Date</th>
                                 <th>Action</th>
                             </tr>
@@ -37,6 +38,7 @@
                                 <td>
                                     <img src="{{asset('uploads/blogs')}}/{{$auth_blog->photo}}" width="100" alt="">
                                 </td>
+                                <td>{{$auth_blog->views}}</td>
                                 <td>{{$auth_blog->created_at->format('d-M-Y')}}</td>
 
                                 <td>
@@ -67,6 +69,7 @@
                                     <th>Author</th>
                                     <th>Blog Title</th>
                                     <th>Thumbnail</th>
+                                    <th>Views</th>
                                     <th>Banner Status</th>
                                     <th>Publish Date</th>
                                     <th>Action</th>
@@ -82,6 +85,7 @@
                                     <td>
                                         <img src="{{asset('uploads/blogs')}}/{{$blog->photo}}" width="100" alt="">
                                     </td>
+                                    <td>{{$blog->views}}</td>
                                     <td>
                                         @if ($blog->banner_status == 0)
                                         <a href="{{route('blog.banner.status' , $blog->id )}}" class="btn btn-primary">Deactivate</a>
