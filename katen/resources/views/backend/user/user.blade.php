@@ -17,6 +17,7 @@
                                 <th>SL</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>Blogs</th>
                                 <th>Role</th>
                                 <th>Photo</th>
                                 <th>Action</th>
@@ -29,6 +30,7 @@
                                 <td>{{$sl+1}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
+                                <td>{{App\Models\Blog::where('author_id' , $user->id)->count()}}</td>
                                 <td>
                                     @if ($user->role == 0)
                                         <div class="badge bg-primary">Visitor</div>

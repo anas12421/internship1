@@ -56,7 +56,7 @@ class FrontendController extends Controller
     function tag_view($id){
 
         $sorting = 'views';
-        $type = 'DESC';
+        // $type = 'DESC';
 
         $latest_blogs = Blog::latest()->take(4)->get();
         $categories = Category::all();

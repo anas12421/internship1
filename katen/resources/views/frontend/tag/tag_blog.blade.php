@@ -29,6 +29,11 @@
         .breadcrumb-item+.breadcrumb-item::before {
             content: '';
         }
+
+        .img_fix{
+            height: 55px;
+            width: 55px
+        }
     </style>
 
 </head>
@@ -156,7 +161,7 @@
                                         <ul class="meta list-inline mb-0">
                                             <li class="list-inline-item"><a href="#"><img
                                                         src="{{ asset('frontend_asset') }}/images/other/author-sm.png" class="author"
-                                                        alt="author" />{{$blog->author}}e</a></li>
+                                                        alt="author" />{{$blog->author}}</a></li>
                                             <li class="list-inline-item">{{$blog->created_at->format('d M Y')}}</li>
                                         </ul>
                                         <h5 class="post-title mb-3 mt-3"><a href="{{route('blog_single' , $blog->slug)}}">{{$blog->title}}</a></h5>
@@ -253,7 +258,7 @@
 									<div class="thumb circle">
 										<a href="{{route('blog_single' , $recent_blog->slug)}}">
 											<div class="inner">
-												<img src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
+												<img class="img_fix" src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
 											</div>
 										</a>
 									</div>

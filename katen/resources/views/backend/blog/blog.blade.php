@@ -16,12 +16,14 @@
                         <div class="alert alert-warning mb-3">{{session('status')}}</div>
                     @endif
                     @if (Auth::user()->role == 0)
+                    <h3>You Upload ({{$auth_blogs->count()}}) Blogs</h3>
                     <table id="ablogs" class="display">
                         <thead>
                             <tr>
                                 <th>Sl</th>
                                 <th>Author</th>
                                 <th>Blog Title</th>
+                                <th>Category</th>
                                 <th>Thumbnail</th>
                                 <th>Views</th>
                                 <th>Publish Date</th>
@@ -35,6 +37,7 @@
                                 <td>{{$sl+1}}</td>
                                 <td>{{$auth_blog->author}}</td>
                                 <td>{{$auth_blog->title}}</td>
+                                <td>{{$auth_blog->rel_to_cat->name}}</td>
                                 <td>
                                     <img src="{{asset('uploads/blogs')}}/{{$auth_blog->photo}}" width="100" alt="">
                                 </td>
@@ -62,12 +65,14 @@
                         </tbody>
                     </table>
                     @else
+                    <h3>Total ({{$blogs->count()}}) Blogs Found</h3>
                         <table id="blogs" class="display">
                             <thead>
                                 <tr>
                                     <th>Sl</th>
                                     <th>Author</th>
                                     <th>Blog Title</th>
+                                    <th>Category</th>
                                     <th>Thumbnail</th>
                                     <th>Views</th>
                                     <th>Banner Status</th>
@@ -82,6 +87,14 @@
                                     <td>{{$sl+1}}</td>
                                     <td>{{$blog->author}}</td>
                                     <td>{{$blog->title}}</td>
+                                    <td>
+                                        {{$blog->rel_to_cat->name}}
+
+                                        <p class="text-danger">
+
+                                            {{$blog->category_id == 15 ? 'Please Update Category' : ''}}
+                                        </p>
+                                    </td>
                                     <td>
                                         <img src="{{asset('uploads/blogs')}}/{{$blog->photo}}" width="100" alt="">
                                     </td>

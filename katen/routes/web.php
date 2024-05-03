@@ -100,3 +100,10 @@ Route::get('/search/result', [SearchController::class , 'search'])->name('search
 Route::post('/comment', [CommentController::class , 'comment_store'])->name('comment.store');
 Route::get('/reply/to/{id}', [CommentController::class , 'reply'])->name('reply');
 Route::post('/reply/store', [CommentController::class , 'reply_store'])->name('reply.store');
+
+
+// Backend Notification For Blog Comment
+Route::get('/notification/list', [BackendController::class , 'notification'])->name('notification');
+Route::get('/notification/view/{id}', [BackendController::class , 'notification_view'])->name('notification.view');
+Route::get('/comment/status/{id}', [BackendController::class , 'comment_status'])->name('comment.status');
+Route::post('/reply/auth', [BackendController::class , 'reply_auth'])->name('reply.auth');

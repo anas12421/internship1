@@ -4,8 +4,12 @@
 
 <!-- Mirrored from themeger.shop/html/katen/html/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Nov 2023 05:32:38 GMT -->
 <head>
+    @php
+        $breads = Request::segments();
+        array_pop($breads);
+    @endphp
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>@foreach (Request::segments() as $segment ) {{ucwords($segment)}} @endforeach | Katen</title>
+	<title>@foreach ($breads as $segment ) {{ucwords($segment)}} @endforeach | Katen</title>
 	<meta name="description" content="Katen - Minimal Blog & Magazine HTML Theme">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<link rel="shortcut icon" type="image/x-icon" href="{{asset('frontend_asset')}}/images/favicon.png">
@@ -25,6 +29,11 @@
     <style>
         .breadcrumb-item+.breadcrumb-item::before {
             content: '' !important;
+        }
+
+        .img_fix{
+            height: 55px;
+            width: 55px
         }
 
     </style>
@@ -82,20 +91,18 @@
                         @foreach (App\Models\Menu::all() as $menu )
 
                         <li class="nav-item {{$menu->name == 'home' ? 'active' : ''}}">
-							<a class="nav-link text-capitalize" href='{{$menu->link}}'>{{$menu->name}}</a>
-						</li>
+													<a class="nav-link text-capitalize" href='{{$menu->link}}'>{{$menu->name}}</a>
+												</li>
                         @endforeach
 
 
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-capitalize" href="#">All Category</a>
-
-
-							<ul class="dropdown-menu">
+                            <ul class="dropdown-menu">
                                 @foreach (App\Models\Category::all() as $category )
-								<li><a class="dropdown-item text-capitalize" href="{{$category->link}}">{{$category->name}}</a></li>
+                                        <li><a class="dropdown-item text-capitalize" href="{{route('category.view' , $category->id)}}">{{$category->name}}</a></li>
                                 @endforeach
-							</ul>
+                            </ul>
 						</li>
 
 

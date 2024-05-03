@@ -4,9 +4,14 @@
 <!-- Mirrored from themeger.shop/html/katen/html/category.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 13 Nov 2023 05:32:51 GMT -->
 
 <head>
+    @php
+        $breads = Request::segments();
+
+        array_pop($breads);
+    @endphp
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>
-        @foreach (Request::segments() as $segment ) {{ucwords($segment)}} @endforeach | Katen
+        @foreach ($breads as $segment ) {{ucwords($segment)}} @endforeach | Katen
     </title>
     <meta name="description" content="Katen - Minimal Blog & Magazine HTML Theme">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -28,6 +33,11 @@
     <style>
         .breadcrumb-item+.breadcrumb-item::before {
             content: '';
+        }
+
+        .img_fix{
+            height: 55px;
+            width: 55px
         }
     </style>
 
@@ -88,7 +98,6 @@
                             </li>
 
                             @foreach ($categories as $category )
-
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('category.view' , $category->id)}}">{{$category->name}}</a>
                             </li>
@@ -100,6 +109,8 @@
             </nav>
         </header>
 
+
+
         <section class="page-header">
             <div class="container-xl">
                 <div class="text-center">
@@ -107,11 +118,11 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb justify-content-center mb-0">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            @foreach (Request::segments() as $segment)
-                            <li class="breadcrumb-item" aria-current="page">
-                                {{ucwords($segment)}}
-                            </li>
-                        @endforeach
+                                @foreach ($breads as $segment)
+                                    <li class="breadcrumb-item" aria-current="page">
+                                        {{ucwords($segment)}}
+                                    </li>
+                                @endforeach
                         </ol>
                     </nav>
                 </div>
@@ -153,7 +164,7 @@
                                         <ul class="meta list-inline mb-0">
                                             <li class="list-inline-item"><a href="#"><img
                                                         src="{{ asset('frontend_asset') }}/images/other/author-sm.png" class="author"
-                                                        alt="author" />{{$category_blog->author}}e</a></li>
+                                                        alt="author" />{{$category_blog->author}}</a></li>
                                             <li class="list-inline-item">{{$category_blog->created_at->format('d M Y')}}</li>
                                         </ul>
                                         <h5 class="post-title mb-3 mt-3"><a href="{{route('blog_single' , $category_blog->slug)}}">{{$category_blog->title}}</a></h5>
@@ -250,7 +261,7 @@
 									<div class="thumb circle">
 										<a href="{{route('blog_single' , $recent_blog->slug)}}">
 											<div class="inner">
-												<img src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
+												<img class="img_fix" src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
 											</div>
 										</a>
 									</div>
@@ -439,6 +450,10 @@
             window.location.href = link;
         })
     </script>
+
+    {{-- <script>
+        console.log(location.pathname.split('/'))
+    </script> --}}
 
 </body>
 

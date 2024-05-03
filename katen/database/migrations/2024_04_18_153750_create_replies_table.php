@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->longText('description');
             $table->string('photo')->nullable();
+            $table->string('author_status')->default(0);
             $table->timestamps();
         });
     }

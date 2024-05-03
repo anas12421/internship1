@@ -161,7 +161,7 @@ class BlogController extends Controller
         $recent_blogs =Blog::all()->take(4)->sortByDesc("views");
         $categories = Category::all();
         $tags = Tag::all();
-        $comments = Comment::where('blog_id' ,$blog_id )->latest()->get();
+        $comments = Comment::where('blog_id' ,$blog_id )->where('comment_status' , 0)->latest()->get();
 
 
 

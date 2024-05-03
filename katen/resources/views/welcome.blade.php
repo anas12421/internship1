@@ -60,7 +60,7 @@
 									<div class="thumb circle">
 										<a href="{{route('blog_single' , $recent_blog->slug)}}">
 											<div class="inner">
-												<img src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
+												<img class="img_fix" src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
 											</div>
 										</a>
 									</div>
@@ -82,7 +82,7 @@
                                         <div class="thumb circle">
                                             <a href="{{route('blog_single' , $latest_blog->slug)}}">
                                                 <div class="inner">
-                                                    <img src="{{asset('uploads/blogs')}}/{{$latest_blog->photo}}" alt="post-title" />
+                                                    <img class="img_fix" src="{{asset('uploads/blogs')}}/{{$latest_blog->photo}}" alt="post-title" />
                                                 </div>
                                             </a>
                                         </div>
@@ -146,7 +146,7 @@
 									</div>
 									<div class="details">
 										<ul class="meta list-inline mb-3">
-											<li class="list-inline-item"><a href="#"><img src="{{asset('frontend_asset')}}/images/other/author-sm.png" class="author" alt="author"/>Katen Doe</a></li>
+											<li class="list-inline-item"><a href="#"><img src="{{asset('frontend_asset')}}/images/other/author-sm.png" class="author" alt="author"/>{{$latest_post->author}}</a></li>
 											<li class="list-inline-item"><a href="#">{{$latest_post->rel_to_cat->name}}</a></li>
 											<li class="list-inline-item text-uppercase">{{$latest_post->created_at->format('d M Y')}}</li>
 										</ul>
@@ -218,7 +218,7 @@
 										<span class="number">{{$sl+1}}</span>
 										<a href="{{route('blog_single' , $recent_blog->slug)}}">
 											<div class="inner">
-												<img src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
+												<img class="img_fix" src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
 											</div>
 										</a>
 									</div>

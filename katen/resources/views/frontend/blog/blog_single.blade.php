@@ -9,11 +9,17 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="javascript: void(0);">Home</a></li>
-                    @foreach (Request::segments() as $segment)
-                    <li class="breadcrumb-item active" aria-current="page">
-                        {{ucwords($segment)}}
-                    </li>
-                @endforeach
+
+                    @php
+                        $breads = Request::segments();
+                        array_pop($breads);
+                    @endphp
+
+                    @foreach ($breads as $segment)
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {{ucwords($segment)}}
+                        </li>
+                    @endforeach
                 </ol>
 
 
@@ -129,13 +135,12 @@
 							</li>
 
                             @foreach (App\Models\Reply::where('comment_id', $comment->id)->get() as $reply)
-
                             <li class="comment child rounded">
 								<div class="thumb">
 									<img src="{{asset('frontend_asset')}}/images/other/comment-2.png" alt="John Doe" />
 								</div>
 								<div class="details">
-									<h4 class="name"><a href="#">{{$reply->name}} > {{$comment->name}}</a></h4>
+									<h4 class="name"><a href="#">{{$reply->name}} <span class="text-success">{{$reply->author_status == 1 ? '( Author )' : ''}}</span> > {{$comment->name}} </a></h4>
 									<span class="date">{{$reply->created_at->format('M d, Y h:i a')}}</span>
 									<p>{{$reply->description}}</p>
 									{{-- <a href="#" class="btn btn-default btn-sm">Reply</a> --}}
@@ -219,6 +224,7 @@
 
 							</div>
                             <input type="hidden" value="{{$blog_info->id}}" name="blog_id">
+                            <input type="hidden" value="{{$blog_info->author_id}}" name="blog_author_id">
 
 							<button type="submit" name="submit" id="submit" class="btn btn-default">Submit</button><!-- Submit Button -->
 
@@ -261,7 +267,7 @@
 										<span class="number">{{$sl+1}}</span>
 										<a href="{{route('blog_single' , $recent_blog->slug)}}">
 											<div class="inner">
-												<img src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
+												<img class="img_fix" src="{{asset('uploads/blogs')}}/{{$recent_blog->photo}}" alt="post-title" />
 											</div>
 										</a>
 									</div>

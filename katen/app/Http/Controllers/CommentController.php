@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Reply;
 use App\Models\Tag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -20,10 +21,12 @@ class CommentController extends Controller
 
         Comment::create([
             'blog_id'=>$request->blog_id,
+            'blog_author_id'=>$request->blog_author_id,
             'name'=>$request->name,
             'email'=>$request->email,
             'website'=>$request->website,
             'description'=>$request->description,
+            'created_at'=>Carbon::now(),
         ]);
 
         return redirect(url()->previous().'#comments')->with('comment_success' , 'Comment Success');
@@ -58,6 +61,7 @@ class CommentController extends Controller
             'email'=>$request->email,
             'website'=>$request->website,
             'description'=>$request->description,
+            'created_at'=>Carbon::now(),
         ]);
 
         return redirect("blog/single/view/$blog_id->slug".'#comments')->with('reply','Reply Success');
